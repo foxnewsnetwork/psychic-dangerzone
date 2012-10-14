@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+user = User.create :email => "test@test.test", :password => "thisisatestpassword"
+user.entries.create :header => "Test Content", :hyperlink => "http://doitfaggot.com", :image => "/faggot.gif"
+user.blogs.create :title => "Test entry", :content => "Well, here is some random ass content here"

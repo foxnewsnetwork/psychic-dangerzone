@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121012191744) do
+ActiveRecord::Schema.define(:version => 20121014190426) do
+
+  create_table "blogs", :force => true do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "blogs", ["slug"], :name => "index_blogs_on_slug", :unique => true
 
   create_table "entries", :force => true do |t|
     t.string   "header"

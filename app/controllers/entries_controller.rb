@@ -8,6 +8,7 @@ class EntriesController < ApplicationController
 	
 	def create
 		@entry = Entry.create params[:entry]
+		redirect_to "pages/edit"
 	end # create
 
 	def destroy

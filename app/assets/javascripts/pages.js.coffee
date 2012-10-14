@@ -4,12 +4,12 @@
 $(document).ready ->
 	class Blog extends Backbone.Model
 		defaults:
-			header: null ,
-			hyperlink: null ,
-			image: null ,
+			title: null ,
+			content: null ,
 			user_id: null
+
 	class Blogs extends Backbone.Collection
-		url: "/entries" ,
+		url: "/blogs" ,
 		model: Blog ,
 		retrieve: ->
 			@fetch
@@ -23,6 +23,26 @@ $(document).ready ->
 			# fetch
 		# retrieve
 
+	class Game extends Backbone.Model
+		defaults:
+			header: null ,
+			hyperlink: null ,
+			image: null ,
+			user_id: null
+
+	class Games extends Backbone.Collection
+		url: "/entries" ,
+		model: Game ,
+		retrieve: ->
+			@fetch
+				url: @url ,
+				success: (models, responses) ->
+					Backbone.Events.trigger "games:retrieved", models
+				, # success
+				error: (error) ->
+					alert error
+				, # error
+		# retrieve
 	###########################
 	# Dirty Inpure IO-related #
 	###########################
@@ -32,6 +52,7 @@ $(document).ready ->
 		container: null
 		show: ->
 			@container.show "effect": "slide"
+			$(".blog-content").hide()
 		hide: ->
 			@container.hide "effect": "slide"
 
@@ -45,18 +66,36 @@ $(document).ready ->
 
 	class BlogView extends GenericView
 		container: $("#blog")
+		parent: $(".ul-blog")
+		template: _.template("<li class='li-blog'><a assfag='<%= slug %>' href='#<%= slug %>'><%= title %></a> <%= created_at %></li>")
+		content: _.template("<div class='blog-content' id='<%= slug %>'><h1 class='h1-blog-title'><%= title %></h1><%= content %></div>")
+		render: (model) ->
+			@parent.prepend @template(model.toJSON())
+			@container.prepend @content(model.toJSON())
+			$("a[assfag='#{model.get("slug")}']").click ->
+				$(".blog-content").hide()
+				$("##{model.get "slug"}").show("effect": "slide")
 	# BlogView
 
 	class GameView extends GenericView
 		container: $("#game")
+		parent: $(".ul-game")
+		template: _.template("<li class='li-game'><div class='image-game'><p class='p-game'>
+			<a href='<%= hyperlink %>' class='link-game'><img src='<%= image %>' class='img-polaroid' width='200' height='200'/></a><%= header %>
+			</p></div></li>")
+		render: (model) ->
+			@parent.prepend @template(model.toJSON())
 	# GameView
 
 	class Artist
 		@ready: (->
 			Backbone.Events.on "blogs:retrieved", (models) ->
-				for models in models
-					Artist.views["blog"].container.append JSON.stringify(model.toJSON())
-				return true
+				for model in models.toArray()
+					Artist.views["blog"].render model
+			Backbone.Events.on "games:retrieved", (models) ->
+				for model in models.toArray()
+					Artist.views["game"].render model
+			return true
 		)() , # ready
 		@views:
 			"about": new AboutView() ,
@@ -91,13 +130,24 @@ $(document).ready ->
 		render: ->
 			@blogs = new Blogs()
 			@blogs.retrieve()
-
+			@games = new Games()
+			@games.retrieve()
 			@container.html ""
 			for target in ["about","blogs","games","contact"]
 				$(@el).append( @template("target": target) )
 			$(@el).appendTo(@container)
 			$(".load-javascript-faggot").hide()
-			Artist.show("blog")
+			switch window.location.hash
+				when "#game", "#games"
+					Artist.show("game")
+				when "#blog"
+					Artist.show("blog")
+				when "#contact"
+					Artist.show("contact")
+				else
+					Artist.show("about")
+			# switch
+			
 		, # render
 		about: ->
 			Artist.show("about")

@@ -29,3 +29,10 @@
 .p-game {
 	border: 0.1em solid #f2f3f4;
 }
+.link-game {
+	width: 200px;
+	height: 200px;
+}
+.blog-content {
+	display: none;
+}

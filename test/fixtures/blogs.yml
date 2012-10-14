@@ -1,11 +1,11 @@
 # == Schema Information
 #
-# Table name: entries
+# Table name: blogs
 #
 #  id         :integer          not null, primary key
-#  header     :string(255)
-#  image      :string(255)
-#  hyperlink  :string(255)
+#  title      :string(255)
+#  slug       :string(255)
+#  content    :text
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -14,13 +14,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  header: MyString
-  image: MyString
-  hyperlink: MyString
+  title: MyString
+  content: MyString
   user_id: 1
 
 two:
-  header: MyString
-  image: MyString
-  hyperlink: MyString
+  title: MyString
+  content: MyString
   user_id: 1

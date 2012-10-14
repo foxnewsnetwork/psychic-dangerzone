@@ -1,0 +1,21 @@
+<div class="container">
+	<div class="row">
+		<% {Entry => @entry, Blog => @blog}.each do |model, entity| %>
+			<div class="span6">
+				<%= form_for entity do |f| %>
+					<% model.attr_accessible[:default].each do |key| %>
+						<% next if key == "" %>
+						<%= f.label key.to_sym %>
+						<% case key %>
+						<% when "content" %>
+							<%= text_area :blog, :content, :size => "20x30" %>
+						<% else %>
+							<%= f.text_field key.to_sym %>
+						<% end %>
+					<% end %>
+					<%= f.submit %>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+</div>

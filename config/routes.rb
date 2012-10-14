@@ -1,8 +1,11 @@
 Crunchyportoflio::Application.routes.draw do
+  resources :blogs
+
   resources :entries
 
   devise_for :users
   get "pages/home"
+  get "pages/edit"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
