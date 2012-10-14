@@ -1,0 +1,28 @@
+.header {
+	padding-top: 5em;
+	height: 5em;
+}
+.ul-header {
+	list-style: none;
+	float: right;
+}
+.li-header {
+	display: inline-block;
+	font-size: 2em;
+	font-weight: bold;
+	margin-left: 1em;
+}
+.footer {
+	padding-top: 5em;
+}
+.ul-footer {
+	list-style: none;
+}
+.li-footer {
+	display: inline-block;
+	font-size: 0.8em;
+	color: #444;
+}
+.about {
+	display: none;
+}

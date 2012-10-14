@@ -1,0 +1,31 @@
+.header {
+	padding-top: 3em;
+	height: 3em;
+}
+.ul-header {	
+	float: right;
+}
+.li-header {
+	display: inline-block;
+	margin-right: 0.7em;
+	font-size: 1.4em;
+}
+.about {
+	display: none;
+}
+.contact {
+	display: none;
+}
+.blog {
+	display: none;
+}
+.game {
+	display: none;
+}
+.ul-game {
+	list-style: none;
+	margin-left: -0.5em;
+}
+.p-game {
+	border: 0.1em solid #f2f3f4;
+}
